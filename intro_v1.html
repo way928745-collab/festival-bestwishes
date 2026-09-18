@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Festival Best Wishes · 个性化节日祝福语助手 v1</title>
+<style>
+  :root{
+    --bg:#0d1017; --panel:#151a24; --panel2:#1b2230;
+    --ink:#e8ecf4; --muted:#98a2b3; --line:#2a3345;
+    --gold:#f0b429; --moon:#ffd97a; --teal:#3ec9a7; --rose:#ff8fa3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
+  .wrap{max-width:980px;margin:0 auto;padding:48px 24px 80px}
+  /* hero */
+  .hero{position:relative;text-align:center;padding:64px 20px 56px;border-radius:24px;overflow:hidden;
+    background:radial-gradient(1200px 500px at 50% -10%,#1d2740 0%,#0d1017 60%);}
+  .moon{position:absolute;top:36px;right:12%;width:84px;height:84px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fff7df,var(--moon) 55%,#d9a520);
+    box-shadow:0 0 60px 18px rgba(255,217,122,.25);animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .badge{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);border:1px solid var(--gold);
+    border-radius:999px;padding:4px 16px;margin-bottom:20px}
+  h1{font-size:40px;letter-spacing:1px}
+  .sub{color:var(--muted);margin-top:12px;font-size:16px}
+  .one-liner{margin-top:8px;font-size:15px;color:var(--teal)}
+  /* sections */
+  section{margin-top:56px}
+  h2{font-size:22px;margin-bottom:20px;padding-left:14px;border-left:4px solid var(--gold)}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.2s}
+  .card:hover{transform:translateY(-3px);border-color:var(--gold)}
+  .card b{display:block;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:14px}
+  /* flow */
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .step{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:14px}
+  .step i{color:var(--gold);font-style:normal;font-weight:700;margin-right:6px}
+  .arr{color:var(--muted)}
+  /* table */
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:var(--gold);white-space:nowrap}
+  td.bad{color:var(--rose)}
+  /* bars */
+  .bar-row{display:flex;align-items:center;gap:12px;margin:12px 0}
+  .bar-label{width:150px;font-size:14px;color:var(--muted);flex-shrink:0}
+  .bar-track{flex:1;background:var(--panel2);border-radius:8px;height:26px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:8px;display:flex;align-items:center;padding-left:10px;font-size:12px;font-weight:700;color:#0d1017;white-space:nowrap}
+  .bf1{background:linear-gradient(90deg,#f0b429,#ffd97a)}
+  .bf2{background:linear-gradient(90deg,#3ec9a7,#7fe7cc)}
+  .note{font-size:13px;color:var(--muted);margin-top:10px}
+  /* sample */
+  .sample{background:var(--panel);border:1px dashed var(--gold);border-radius:12px;padding:16px 18px;margin:10px 0;font-size:15px}
+  .sample small{display:block;color:var(--muted);margin-bottom:6px;font-size:12px}
+  /* evidence pending */
+  .pending{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:22px;color:var(--muted);font-size:14px}
+  /* promo */
+  .promo{margin-top:64px;text-align:center;background:radial-gradient(600px 220px at 50% 0%,#243049,#151a24);
+    border:1px solid var(--gold);border-radius:20px;padding:36px 24px}
+  .promo h2{border:none;padding:0;display:inline-block}
+  .promo a{color:var(--gold);font-weight:700;text-decoration:none;word-break:break-all}
+  footer{margin-top:40px;text-align:center;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="moon"></div>
+    <div class="badge">FESTIVAL BEST WISHES · v1.0.0</div>
+    <h1>个性化节日祝福语助手</h1>
+    <p class="sub">别再群发"阖家团圆万事如意"了——让 AI 先问你，再替你写出只有你俩才发得出的祝福。</p>
+    <p class="one-liner">问答式定制 · 50字以内 · 单句一键复制 · 中秋/春节/生日全适用</p>
+  </div>
+
+  <section>
+    <h2>① 它解决什么</h2>
+    <div class="grid g2">
+      <div class="card"><b>🤖 群发祝福没人回，等于白发</b><p>通用套话（"中秋快乐万事如意"）对方不会回复。本技能用问答逼出你们之间的真实交集，祝福立刻不像群发。</p></div>
+      <div class="card"><b>😶 词穷：翻来覆去就那几句</b><p>AI 能写出文字，却写不出人情味。人情味来自你提供的小事：合作过的项目、一起吃的饭、TA 帮过的忙。</p></div>
+      <div class="card"><b>🧩 发给谁都不知措辞</b><p>给领导和给死党一个语气肯定不对。五类对象写法对照表，分寸自动切换。</p></div>
+      <div class="card"><b>📎 写好了复制还麻烦</b><p>每条祝福语独立成块，点开即复制，粘贴到微信就能发。</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>② 怎么用：五问定一笔</h2>
+    <div class="flow">
+      <span class="step"><i>问0</i>哪个节日</span><span class="arr">→</span>
+      <span class="step"><i>问1</i>给谁写</span><span class="arr">→</span>
+      <span class="step"><i>问2</i>怎么称呼</span><span class="arr">→</span>
+      <span class="step"><i>问3</i>你们之间的小事</span><span class="arr">→</span>
+      <span class="step"><i>问4</i>想不想TA回</span><span class="arr">→</span>
+      <span class="step" style="border-color:var(--gold)"><i>✦</i>3条候选 · 单句复制</span>
+    </div>
+    <p class="note">一次只问一个问题，答完再问下一个。第4问是命门：答不出细节会被追问，宁可多问一轮，也不用套话填空。</p>
+  </section>
+
+  <section>
+    <h2>③ 核心主张：字数越少越真诚，越具体越走心</h2>
+    <div class="bar-row"><span class="bar-label">套话"阖家团圆万事如意"</span><div class="bar-track"><div class="bar-fill bf1" style="width:92%;background:linear-gradient(90deg,#6b7280,#9ca3af)">收到 0 条回复 · 白发</div></div></div>
+    <div class="bar-row"><span class="bar-label">"祝您中秋快乐阖家幸福"</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:linear-gradient(90deg,#6b7280,#9ca3af)">机器感，对方识破群发</div></div></div>
+    <div class="bar-row"><span class="bar-label">含真实交集的具体祝福</span><div class="bar-track"><div class="bar-fill bf2" style="width:52%">≤50字 · 对方觉得被记挂</div></div></div>
+    <p class="note">示意图：依据方法论原文「字数越少越好，越具体越真诚」「通用祝福对方不会回复，等于白发」的对比关系绘制，非实测统计。</p>
+  </section>
+
+  <section>
+    <h2>④ 对象 × 写法对照表</h2>
+    <table>
+      <tr><th>对象</th><th>写法要点</th><th>反面（别写）</th></tr>
+      <tr><td>👔 领导/客户</td><td>尊称 + 一件合作小事 + 语气稳重 + 不加表情符号</td><td class="bad">"祝您中秋快乐阖家幸福"（机器感）</td></tr>
+      <tr><td>🧓 长辈</td><td>优先关心身体 + 简短 + 不用特殊符号</td><td class="bad">华丽排比</td></tr>
+      <tr><td>🍻 平辈好友</td><td>用你们之间的小梗 + 口语化</td><td class="bad">"万事如意心想事成"（客套生分）</td></tr>
+      <tr><td>💛 爱人/家人</td><td>具体回忆 + 直白想念，可留见面约定</td><td class="bad">群发体</td></tr>
+      <tr><td>🌱 潜在客户</td><td>轻量、不求回复、不提要求（随缘别硬凑）</td><td class="bad">硬凑热络、带推销</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>⑤ 真实样例（方法论原文示例）</h2>
+    <div class="sample"><small>❌ 群发感（AI直出套话）</small>祝您中秋快乐，阖家幸福，万事如意！</div>
+    <div class="sample"><small>✅ 走心款（尊称+合作小事+稳重+无表情，43字）</small>王总，这半年合作很顺利，中秋好好休息，祝您和家人身体健康。</div>
+  </section>
+
+  <section>
+    <h2>⑥ 证据（真实运行数据）</h2>
+    <div class="pending">📊 待首月运行数据。本页不编造数字；技能经过一段时间真实使用后，此处将补充：平均每次问答轮数、生成条数、用户改稿率等实跑口径。</div>
+  </section>
+
+  <div class="promo">
+    <h2>🌟 更新包与更多独家 skill，都在知识星球</h2>
+    <p style="color:var(--muted);margin:8px 0 18px">加入「安岩的AI胶囊」，获取本技能后续升级包与实战调优记录。</p>
+    <p style="font-size:18px">🔗 <a href="https://t.zsxq.com/uN5lR">https://t.zsxq.com/uN5lR</a></p>
+  </div>
+
+  <footer>festival-bestwishes v1.0.0 · 2026-09-18 · 本介绍页由发布包自动生成口径撰写</footer>
+</div>
+</body>
+</html>

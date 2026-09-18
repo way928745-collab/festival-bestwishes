@@ -1,0 +1,12 @@
+{
+  "files": {
+    "SKILL.md": "69e5ce8202f1f8fe82307f24a3056f32e79f199bad82d56571d71ddcc77567a2",
+    "diko_kit/scripts/diko_api_client.py": "c8f71520ed9331618335a284d86cccb10da43229c8a7138651d1a1c1cd07d19b",
+    "diko_kit/scripts/doctor.py": "45c52a09e136ff2464069caaa16bb9783b36bffcbc9bba7cc6fb58dee6bcf5e5",
+    "diko_kit/scripts/register.py": "b848af3723221078a4ddf96d9d20fcbf27605270e06db5cc987fe736626d067d",
+    "scripts/gate.py": "07b47c5a03aa33d5791a0baf326a5274bd52a32ba093a601d42742b3e93ca9e2",
+    "scripts/integrity.py": "925d8247030d31a1d6045c852e628d933aa5eff4c806432434fb3d1c1480efef"
+  },
+  "generated_by": "make_manifest.py",
+  "version": 1
+}
