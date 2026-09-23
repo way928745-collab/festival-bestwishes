@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""DIKO 使用授权闸门 v2（gate_kit 通用版：工作流前必跑，注册/登入自动分流）：
-1) integrity.py 完整性校验（篡改/删除 diko 模块 -> 拒绝）
-2) DIKO 鉴权分流：
-   - 无 refresh 且无凭据（从未登入过）-> REGISTRATION_REQUIRED：直接给注册引导链
+"""DIKO 使用授权闸门 v3（gate_kit 通用版：会话开工前跑一次，注册/登入自动分流）：
+1) DIKO 鉴权分流：
+   - 无 refresh 且无凭据（本机从未登入过）-> REGISTRATION_REQUIRED：给注册引导链
    - 有 refresh -> refresh_access()（>24h 自动重登 = 每日校验）
    - 有凭据无 refresh -> login()
    - 鉴权失败 -> LOGIN_FAILED（密码问题，不引导注册，防重复注册）
-3) get_profile() 实调验证 token 有效，输出登录凭证行。
-4) 同日已 PASS（.gate_ok 日期戳）秒过。
-退出码 0=放行 / 1=拒绝。输出单行 JSON。
+2) get_profile() 实调验证 token 有效，输出登录凭证行。
+3) 同日已 PASS（.gate_ok 日期戳）秒过。
+本闸门无完整性锁：授权文件被删只会让这里报错并给恢复指引，删掉整个技能文件夹
+即可完全卸载，凭据仅存本机 diko_kit/scripts/config/diko_api.env。
+退出码 0=放行 / 1=未授权。输出单行 JSON。
 """
 import datetime
 import json
 import os
-import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.realpath(__file__))
@@ -53,9 +53,10 @@ def _has_refresh():
 def _registration_chain():
     k = KIT.replace("\\", "/")
     return (
-        "首次使用自动注册（无需判断，直接按链执行）："
-        "① 向用户采集 用户名/密码/邮箱/手机号（一次一问；首条消息末尾附软退路一句："
-        "若已有 DIKO 账号，直接发来用户名密码即改走登入）；"
+        "首次使用：先向用户说明注册用途——采集用户名/密码/邮箱/手机号仅用于创建 DIKO 账号"
+        "（www.dikoai.cn）并维持日常自动登入，凭据只存用户本机此路径、不上传别处；"
+        "用户知情后再按链执行："
+        "① 采集 用户名/密码/邮箱/手机号（一次一问；若用户已有 DIKO 账号，直接发来用户名密码即改走登入）；"
         "② python -X utf8 \"{k}/register.py\" validate --username .. --password .. "
         "--email .. --phone .. 取得脱敏参数与一次性 token；"
         "③ 把 validate 输出（密码已打码）展示给用户，取得一次「允许提交」明确确认"
@@ -69,19 +70,6 @@ def _registration_chain():
 
 
 def main():
-    # 1) 完整性互锁永远先跑
-    try:
-        r = subprocess.run([sys.executable, "-X", "utf8", os.path.join(HERE, "integrity.py")],
-                           capture_output=True, text=True, timeout=60)
-    except Exception as e:
-        deny("INTEGRITY_ERROR", "完整性校验无法执行：{0}".format(e))
-    if r.returncode != 0:
-        deny("INTEGRITY_FAIL",
-             "正版校验未通过——核心文件可能被删除/篡改。"
-             "本机装有 diko-use 伞技能则从其 scripts/ 拷回缺失文件后重跑 "
-             "python scripts/make_manifest.py 对账；独立发布的包被删则重装技能包。"
-             " | integrity输出: " + (r.stdout or r.stderr or "").strip()[:400])
-
     today = datetime.date.today().isoformat()
     try:
         with open(GATE_OK, "r", encoding="utf-8") as f:
@@ -93,7 +81,7 @@ def main():
     except OSError:
         pass
 
-    # 2) 鉴权分流：本机从未有过 DIKO 账号 -> 直接引导注册（不出选择题）
+    # 鉴权分流：本机从未有过 DIKO 账号 -> 先说明用途再引导注册（用户不做选择题）
     if not _has_refresh() and not _has_creds():
         deny("REGISTRATION_REQUIRED", _registration_chain(),
              {"next": "collect_and_register", "register_cli": "python -X utf8 \"{0}/register.py\"".format(KIT.replace("\\", "/"))})
@@ -101,7 +89,9 @@ def main():
     try:
         import diko_api_client as diko
     except Exception as e:
-        deny("IMPORT_FAIL", "diko 底座模块不可用：{0}（跑 doctor.py 诊断）".format(e))
+        deny("IMPORT_FAIL",
+             "DIKO 授权模块不可用：{0}。跑 diko_kit/scripts/doctor.py 可定位缺失文件，"
+             "从原包或 diko-use 伞技能拷回缺失项即可恢复（无完整性锁，误删不影响技能数据）。".format(e))
 
     try:
         if _has_refresh():
