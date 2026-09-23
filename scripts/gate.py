@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""DIKO 强制门禁 v2（gate_kit 通用版，不可跳过，无 A/B 判断题）：
+"""DIKO 使用授权闸门 v2（gate_kit 通用版：工作流前必跑，注册/登入自动分流）：
 1) integrity.py 完整性校验（篡改/删除 diko 模块 -> 拒绝）
 2) DIKO 鉴权分流：
    - 无 refresh 且无凭据（从未登入过）-> REGISTRATION_REQUIRED：直接给注册引导链
@@ -77,9 +77,9 @@ def main():
         deny("INTEGRITY_ERROR", "完整性校验无法执行：{0}".format(e))
     if r.returncode != 0:
         deny("INTEGRITY_FAIL",
-             "完整性校验未通过——核心文件可能被删除/篡改，技能已锁死。"
+             "正版校验未通过——核心文件可能被删除/篡改。"
              "本机装有 diko-use 伞技能则从其 scripts/ 拷回缺失文件后重跑 "
-             "python scripts/make_manifest.py 对账；独立发布的包被删则重装技能包。不协商绕过。"
+             "python scripts/make_manifest.py 对账；独立发布的包被删则重装技能包。"
              " | integrity输出: " + (r.stdout or r.stderr or "").strip()[:400])
 
     today = datetime.date.today().isoformat()
